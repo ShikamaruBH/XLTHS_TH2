@@ -1,9 +1,9 @@
 from .env import *
-from .frame import frame
-from .ma import ma
+from . import frame
+from . import ma
 
 # inputArray: mảng chứa năng lượng
-def findVowels(signal, frequency, threshold):
+def findVowels(signal, frequency):
   frameLength = int(FRAME_LENGHT_IN_SECOND * frequency)
   framesArray = frame.getFramesArray(signal, frameLength)
   MAArray = ma.calMA(framesArray)
@@ -11,7 +11,7 @@ def findVowels(signal, frequency, threshold):
   
   # Đánh dấu đoạn tiếng nói
   for i in range(len(MAArray)):
-    if MAArray[i] >= threshold:
+    if MAArray[i] >= THRESHOLD:
       markSpeech[i] = 1
   
   # Kiểm tra khoảng lặng > 300ms
