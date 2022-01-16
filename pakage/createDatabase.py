@@ -7,7 +7,7 @@ import json
 from .findVowels import findVowels
 from .getMFCCVectors import getMFCCVectors
 
-def createDatabase(K):
+def createDatabase():
 	path = './NguyenAmHuanLuyen-16k'
 	VECTORS_DATA = {'a': [], 'e': [], 'i': [], 'o': [], 'u': []}
 	VECTORS_RESULT = {'a': [], 'e': [], 'i': [], 'o': [], 'u': []}
