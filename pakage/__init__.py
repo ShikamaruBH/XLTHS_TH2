@@ -1,2 +1,2 @@
 from .confusionMatrix import confusionMatrix
-from .getMFCCVectors import getMFCCVectors
+from .createDatabase import createDatabase
