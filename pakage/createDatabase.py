@@ -21,7 +21,14 @@ def createDatabase():
 
 	for vowel in DATA:
 		print(f'Calculating {vowel} vectors')
-		cluster_centers = KMeans(K, random_state=RANDOM_STATE).fit(np.array(DATA[vowel])).cluster_centers_
+
+		cluster_centers = KMeans(K).fit(np.array(DATA[vowel])).cluster_centers_
+
+		for i in range(DB_LOOP):
+			cluster_centers += KMeans(K).fit(np.array(DATA[vowel])).cluster_centers_
+
+		cluster_centers /= (DB_LOOP + 1)
+
 		DATA[vowel] = [list(center.astype(float)) for center in cluster_centers]
 
 	json.dump(DATA, open('CSDL.json', 'w'))
