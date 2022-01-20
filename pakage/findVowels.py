@@ -1,17 +1,17 @@
 from .env import *
 from . import frame
-from . import ma
+from . import ste
 
 # inputArray: mảng chứa năng lượng
 def findVowels(signal, frequency):
   frameLength = int(FRAME_LENGHT_IN_SECOND * frequency)
   framesArray = frame.getFramesArray(signal, frameLength)
-  MAArray = ma.calMA(framesArray)
-  markSpeech = np.zeros(len(MAArray))
+  STEArray = ste.calSTE(framesArray)
+  markSpeech = np.zeros(len(STEArray))
   
   # Đánh dấu đoạn tiếng nói
-  for i in range(len(MAArray)):
-    if MAArray[i] >= THRESHOLD:
+  for i in range(len(STEArray)):
+    if STEArray[i] >= THRESHOLD:
       markSpeech[i] = 1
   
   # Kiểm tra khoảng lặng > 300ms
@@ -31,16 +31,24 @@ def findVowels(signal, frequency):
   
   firstTime = 0
   lastTime = len(signal) / frequency
+  lengthOfVowel = 0
+  firstTemp = 0
+  lastTemp = len(signal) / frequency
+  countOne = 0
   
-  for index in range(0, len(markSpeech)):
-    if markSpeech[index] == 1 and index == 0 or markSpeech[index] == 1 and markSpeech[index - 1] == 0:
-      firstTime = 2 * FRAME_LENGHT_IN_SECOND * index / 3
-      break
-  for index in range(0, len(markSpeech)):
-    if markSpeech[index] == 0 and markSpeech[index - 1] == 1 or markSpeech[index] == 1 and index == (len(markSpeech) - 1):
-      lastTime = 2 * FRAME_LENGHT_IN_SECOND * index / 3
-      break
-    
+  for index in range(len(markSpeech)):
+    if markSpeech[index] == 1:
+      countOne += 1
+      if markSpeech[index - 1] == 0:
+        firstTemp = 2 * FRAME_LENGHT_IN_SECOND * index / 3
+    else:
+      if markSpeech[index - 1] == 1:
+        lastTemp = 2 * FRAME_LENGHT_IN_SECOND * index / 3
+        if countOne > lengthOfVowel:
+          lengthOfVowel = countOne
+          firstTime = firstTemp
+          lastTime = lastTemp
+  
   signal = signal[int(firstTime * frequency):int(lastTime * frequency)]
   
   return signal
