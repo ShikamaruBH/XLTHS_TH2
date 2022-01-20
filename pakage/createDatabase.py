@@ -16,18 +16,13 @@ def createDatabase():
 		for vowel in VOWELS:
 			signal, Fs = load(f'{path}/{name}/{vowel}.wav', sr=None)
 			vowel_part = findVowels(signal, Fs)
-			MFCCVectors = getMFCCVectors(vowel_part, Fs, N)
+			MFCCVectors = getMFCCVectors(vowel_part, Fs)
 			DATA[vowel] += (MFCCVectors)
 
 	for vowel in DATA:
 		print(f'Calculating {vowel} vectors')
 
 		cluster_centers = KMeans(K).fit(np.array(DATA[vowel])).cluster_centers_
-
-		for i in range(DB_LOOP):
-			cluster_centers += KMeans(K).fit(np.array(DATA[vowel])).cluster_centers_
-
-		cluster_centers /= (DB_LOOP + 1)
 
 		DATA[vowel] = [list(center.astype(float)) for center in cluster_centers]
 
