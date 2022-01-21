@@ -14,5 +14,6 @@ THRESHOLD = 0.06827
 # Threshold of MA
 # THRESHOLD = 0.11918
 
+N_FFT = 1024
 N = 13
 K = 1

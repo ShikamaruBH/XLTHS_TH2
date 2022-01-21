@@ -40,10 +40,10 @@ def findVowels(signal, frequency):
     if markSpeech[index] == 1:
       countOne += 1
       if markSpeech[index - 1] == 0:
-        firstTemp = 2 * FRAME_LENGHT_IN_SECOND * index / 3
+        firstTemp = FRAME_LENGHT_IN_SECOND * index / 3
     else:
       if markSpeech[index - 1] == 1:
-        lastTemp = 2 * FRAME_LENGHT_IN_SECOND * index / 3
+        lastTemp = FRAME_LENGHT_IN_SECOND * index / 3
         if countOne > lengthOfVowel:
           lengthOfVowel = countOne
           firstTime = firstTemp
