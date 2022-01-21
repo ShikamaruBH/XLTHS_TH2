@@ -1,7 +1,15 @@
 from .env import *
+
+import matplotlib.pyplot as plt
 from librosa.feature import mfcc
 
 def getMFCCVectors(vowel_part, Fs):
+	# plt.figure('vowel')
+	# plt.plot(vowel_part)
+	# plt.axvline(int(vowel_part.size / 3), color='k')
+	# plt.axvline(int(vowel_part.size * 2 / 3), color='k')
+	# plt.show()
+
 	vowel_part = vowel_part[int(vowel_part.size / 3):int(vowel_part.size * 2 / 3)]
 	l = []
 	for i in range(0, int(vowel_part.size * Fs), int(FRAME_SHIFT_IN_SECOND * Fs)):
