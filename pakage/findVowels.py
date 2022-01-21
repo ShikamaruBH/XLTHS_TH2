@@ -61,6 +61,8 @@ def findVowels(signal, frequency):
   #   timeSampleSTE[index] = FRAME_LENGHT_IN_SECOND * index / 3
   # plt.plot(timeSample, signal)
   # plt.plot(timeSampleSTE, STEArray, 'r')
+  # plt.axvline(x = firstTime, color = 'g')
+  # plt.axvline(x = lastTime, color = 'g')
   # plt.show()
 
   signal = signal[int(firstTime * frequency):int(lastTime * frequency)]

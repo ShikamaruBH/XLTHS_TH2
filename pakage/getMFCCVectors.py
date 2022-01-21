@@ -15,10 +15,10 @@ def getMFCCVectors(vowel_part, Fs):
 	l = []
 	for i in range(0, int(vowel_part.size * Fs), int(FRAME_SHIFT_IN_SECOND * Fs)):
 		if vowel_part[i:i + int(FRAME_LENGHT_IN_SECOND * Fs)].size == int(FRAME_LENGHT_IN_SECOND * Fs):
-			temp = mfcc(vowel_part[i:i + int(FRAME_LENGHT_IN_SECOND * Fs)], Fs, n_mfcc=N)
-			l.append(temp.T[0])
+			# temp = mfcc(vowel_part[i:i + int(FRAME_LENGHT_IN_SECOND * Fs)], Fs, n_mfcc=N)
+			# l.append(temp.T[0])
 
-			# temp = fft(vowel_part[i:i + int(FRAME_LENGHT_IN_SECOND * Fs)] * np.hamming(int(FRAME_LENGHT_IN_SECOND * Fs)), N_FFT)
-			# l.append(abs(temp[:int(len(temp) / 2)]))
+			temp = fft(vowel_part[i:i + int(FRAME_LENGHT_IN_SECOND * Fs)] * np.hamming(int(FRAME_LENGHT_IN_SECOND * Fs)), N_FFT)
+			l.append(abs(temp[:int(len(temp) / 2)]))
 
 	return l

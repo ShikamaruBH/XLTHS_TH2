@@ -12,13 +12,6 @@ def distanceVectors(vector1, vector2):
 def identificateVowel(signal, Fs):
   DATA = json.load(open('CSDL.json'))
   vowel = findVowels(signal, Fs)
-
-  # plt.subplot(2, 1, 1)
-  # plt.plot(signal)
-  # plt.subplot(2, 1, 2)
-  # plt.plot(vowel)
-  # plt.show()
-
   MFCCVectors = getMFCCVectors(vowel, Fs)
   averageVector = sum(MFCCVectors) / len(MFCCVectors)
   
