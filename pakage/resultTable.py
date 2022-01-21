@@ -2,7 +2,6 @@ from .env import *
 from .identificateVowel import identificateVowel
 from .confusionMatrix import confusionMatrix
 
-from os.path import join
 from librosa import load
 
 def resultTable():
@@ -18,12 +17,12 @@ def resultTable():
       vowelResult = identificateVowel(signal, frequency)
       matrix[j][VOWELS.index(vowelResult)] += 1
       if vowelResult == VOWELS[j]:
-        answer = 'Đ'
+        answer = 'T'
         countCorrect += 1
       else:
-        answer = 'S'
+        answer = vowelResult
       print(f' {answer} ', end=' ')
     print()
-  print(f'{"ĐCX":12}{round((countCorrect / (len(TINHIEUKIEMTHU_NAMES) * len(VOWELS))) * 100, 3)} %')
+  print(f'{"ĐCX":12}{round((countCorrect / (len(TINHIEUKIEMTHU_NAMES) * len(VOWELS))) * 100, 2)} %')
   print(f'\n{"":6}Ma tran nham lan')
   confusionMatrix(matrix)
