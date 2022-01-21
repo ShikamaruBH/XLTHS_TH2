@@ -2,6 +2,7 @@ from .env import *
 
 import matplotlib.pyplot as plt
 from librosa.feature import mfcc
+from scipy.fft import fft
 
 def getMFCCVectors(vowel_part, Fs):
 	# plt.figure('vowel')
@@ -14,6 +15,10 @@ def getMFCCVectors(vowel_part, Fs):
 	l = []
 	for i in range(0, int(vowel_part.size * Fs), int(FRAME_SHIFT_IN_SECOND * Fs)):
 		if vowel_part[i:i + int(FRAME_LENGHT_IN_SECOND * Fs)].size == int(FRAME_LENGHT_IN_SECOND * Fs):
-			temp = mfcc(vowel_part[i:i + int(FRAME_LENGHT_IN_SECOND * Fs)], Fs, n_mfcc=N, n_fft=int(FRAME_LENGHT_IN_SECOND * Fs))
-			l.append(temp.T[0])
+			# temp = mfcc(vowel_part[i:i + int(FRAME_LENGHT_IN_SECOND * Fs)], Fs, n_mfcc=N)
+			# l.append(temp.T[0])
+
+			temp = abs(fft(vowel_part[i:i + int(FRAME_LENGHT_IN_SECOND * Fs)] * np.hamming(int(FRAME_LENGHT_IN_SECOND * Fs)), N_FFT))
+			temp = temp[:int(temp.size / 2)]
+			l.append(temp)
 	return l

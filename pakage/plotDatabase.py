@@ -1,11 +1,10 @@
 from .env import K, np, VOWELS
+from .createDatabase import createDatabase
 
 import matplotlib.pyplot as plt
-import json
 
 def plotDatabase():
-	DATA = json.load(open('CSDL.json'))
-
+	DATA = createDatabase()
 	plt.figure('First vectors of 5 vowels')
 	for vowel in DATA:
 		plt.plot(DATA[vowel][0])

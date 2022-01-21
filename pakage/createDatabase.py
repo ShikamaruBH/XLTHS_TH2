@@ -4,7 +4,6 @@ from .getMFCCVectors import getMFCCVectors
 
 from librosa import load
 from sklearn.cluster import KMeans
-import json
 
 def createDatabase():
 	path = './NguyenAmHuanLuyen-16k'
@@ -23,6 +22,4 @@ def createDatabase():
 
 		cluster_centers = KMeans(K, random_state=0).fit(np.array(DATA[vowel])).cluster_centers_
 
-		DATA[vowel] = [list(center.astype(float)) for center in cluster_centers]
-
-	json.dump(DATA, open('CSDL.json', 'w'))
+	return DATA
