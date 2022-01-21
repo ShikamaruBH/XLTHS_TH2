@@ -1,9 +1,11 @@
 from .env import *
 from . import frame
 from . import ste
+import matplotlib.pyplot as plt
 
 # inputArray: mảng chứa năng lượng
 def findVowels(signal, frequency):
+  signal = signal / max(np.max(signal), abs(np.min(signal)))
   frameLength = int(FRAME_LENGHT_IN_SECOND * frequency)
   framesArray = frame.getFramesArray(signal, frameLength)
   STEArray = ste.calSTE(framesArray)
@@ -49,6 +51,18 @@ def findVowels(signal, frequency):
           firstTime = firstTemp
           lastTime = lastTemp
   
+  # # Tín hiệu trên miền thời gian
+  # timeSample = np.zeros(len(signal))
+  # for index in range(len(signal)):
+  #   timeSample[index] = index / frequency
+  
+  # timeSampleSTE = np.zeros(len(STEArray))
+  # for index in range(len(STEArray)):
+  #   timeSampleSTE[index] = FRAME_LENGHT_IN_SECOND * index / 3
+  # plt.plot(timeSample, signal)
+  # plt.plot(timeSampleSTE, STEArray, 'r')
+  # plt.show()
+
   signal = signal[int(firstTime * frequency):int(lastTime * frequency)]
   
   return signal
