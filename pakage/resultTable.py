@@ -1,8 +1,9 @@
 from .env import *
-from os.path import join
-from scipy.io.wavfile import read
 from .identificateVowel import identificateVowel
 from .confusionMatrix import confusionMatrix
+
+from os.path import join
+from librosa import load
 
 def resultTable():
   countCorrect = 0
@@ -13,8 +14,7 @@ def resultTable():
   for i in range(len(TINHIEUKIEMTHU_NAMES)):
     print(f'{TINHIEUKIEMTHU_NAMES[i]} ', end=' ')
     for j in range(len(VOWELS)):
-      frequency, signal = read(join(r'./NguyenAmKiemThu-16k', TINHIEUKIEMTHU_NAMES[i], VOWELS[j] + '.wav'))
-      signal = signal / max(np.max(signal), abs(np.min(signal)))
+      signal, frequency = load(f'./NguyenAmKiemThu-16k/{TINHIEUKIEMTHU_NAMES[i]}/{VOWELS[j]}.wav', sr=None)
       vowelResult = identificateVowel(signal, frequency)
       matrix[j][VOWELS.index(vowelResult)] += 1
       if vowelResult == VOWELS[j]:
