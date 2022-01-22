@@ -19,6 +19,6 @@ def getMFCCVectors(vowel_part, Fs):
 			# l.append(temp.T[0])
 
 			temp = fft(vowel_part[i:i + int(FRAME_LENGHT_IN_SECOND * Fs)] * np.hamming(int(FRAME_LENGHT_IN_SECOND * Fs)), N_FFT)
-			l.append(abs(temp[:int(len(temp) / 2)]))
+			l.append(10 * np.log(abs(temp[:int(len(temp) / 2)])))
 
 	return l
